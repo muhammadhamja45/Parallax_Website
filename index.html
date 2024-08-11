@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Parallax with Floating Cards and Form</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom CSS for the enhanced parallax effect */
+        .parallax {
+            background-image: url('https://i.pinimg.com/originals/94/c7/cd/94c7cd74b7c40198fb2da7e577326426.jpg'); /* Replace with your image */
+            height: 100vh;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .parallax::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+            z-index: 1;
+        }
+
+        .parallax-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .parallax-content h1 {
+            font-size: 4rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .parallax-content p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+        }
+
+        .parallax-content a {
+            background-color: #38a169; /* Tailwind Green */
+            padding: 0.75rem 2rem;
+            border-radius: 9999px;
+            font-size: 1.25rem;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .parallax-content a:hover {
+            background-color: #2f855a;
+        }
+
+        /* Second parallax section */
+        .parallax-second {
+            background-image: url('https://i.pinimg.com/originals/94/c7/cd/94c7cd74b7c40198fb2da7e577326426.jpg'); /* Replace with your image */
+            height: 80vh;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .parallax-second::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4); /* Dark overlay */
+            z-index: 1;
+        }
+
+        .parallax-second-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .parallax-second-content h2 {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .parallax-second-content p {
+            font-size: 1.25rem;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Floating cards */
+        .floating-cards {
+            position: relative;
+            top: -50px;
+            z-index: 3;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 0 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .floating-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+            width: 300px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .floating-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0px 15px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .floating-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .floating-card p {
+            font-size: 1rem;
+            color: #555;
+        }
+
+        /* Form and Map section */
+        .form-map-section {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 40px;
+            padding: 50px 20px;
+        }
+
+        .form-container {
+            flex: 1;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+            padding: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-container:hover {
+            transform: translateY(-10px);
+            box-shadow: 0px 15px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-container h3 {
+            font-size: 1.75rem;
+            margin-bottom: 20px;
+        }
+
+        .form-container input,
+        .form-container textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .form-container button {
+            background-color: #38a169;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-container button:hover {
+            background-color: #2f855a;
+        }
+
+        .map-container {
+            flex: 1;
+            border-radius: 10px;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            height: 400px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .map-container:hover {
+            transform: translateY(-10px);
+            box-shadow: 0px 15px 25px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <!-- Responsive Navbar -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between">
+                <div class="flex space-x-7">
+                    <div>
+                        <!-- Website Logo -->
+                        <a href="#" class="flex items-center py-4 px-2">
+                            <span class="font-semibold text-gray-500 text-lg">BrandLogo</span>
+                        </a>
+                    </div>
+                    <!-- Primary Navbar items -->
+                    <div class="hidden md:flex items-center space-x-1">
+                        <a href="#" class="py-4 px-2 text-green-500 border-b-4 border-green-500 font-semibold ">Home</a>
+                        <a href="#" class="py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300">About</a>
+                        <a href="#" class="py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300">Services</a>
+                        <a href="#" class="py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300">Contact</a>
+                        <a href="#" class="py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300">Login</a>
+                        <a href="#" class="py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300">Logout</a>
+                    </div>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button class="outline-none mobile-menu-button">
+                        <svg class=" w-6 h-6 text-gray-500 hover:text-green-500 " 
+                            x-show="!showMenu"
+                            fill="none"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- mobile menu -->
+        <div class="hidden mobile-menu">
+            <ul class="">
+                <li><a href="#" class="block text-sm px-2 py-4 text-white bg-green-500 font-semibold">Home</a></li>
+                <li><a href="#about" class="block text-sm px-2 py-4 hover:bg-green-500 transition duration-300">About</a></li>
+                <li><a href="#services" class="block text-sm px-2 py-4 hover:bg-green-500 transition duration-300">Services</a></li>
+                <li><a href="#contact" class="block text-sm px-2 py-4 hover:bg-green-500 transition duration-300">Contact</a></li>
+                <li><a href="#" class="block text-sm px-2 py-4 hover:bg-green-500 transition duration-300">Login</a></li>
+                <li><a href="#" class="block text-sm px-2 py-4 hover:bg-green-500 transition duration-300">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Enhanced Parallax Jumbotron -->
+    <div class="parallax">
+        <div class="parallax-content">
+            <h1>Discover the Night</h1>
+            <p>Journey into the serene and mystical beauty of nature's wonders.</p>
+            <a href="#explore">Explore Now</a>
+        </div>
+    </div>
+
+    <!-- Content Section After Jumbotron -->
+    <div class="max-w-6xl mx-auto px-4 py-16">
+        <h2 class="text-4xl font-bold text-gray-800 text-center mb-12">Our Services</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="bg-white rounded-lg shadow-lg p-6 transition-transform transform hover:scale-105">
+                <h3 class="text-2xl font-semibold mb-4">Service One</h3>
+                <p class="text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>
+            </div>
+            <div class="bg-white rounded-lg shadow-lg p-6 transition-transform transform hover:scale-105">
+                <h3 class="text-2xl font-semibold mb-4">Service Two</h3>
+                <p class="text-gray-600">Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.</p>
+            </div>
+            <div class="bg-white rounded-lg shadow-lg p-6 transition-transform transform hover:scale-105">
+                <h3 class="text-2xl font-semibold mb-4">Service Three</h3>
+                <p class="text-gray-600">Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem vitae risus tristique posuere.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Second Parallax Section -->
+    <div class="parallax-second">
+        <div class="parallax-second-content">
+            <h2>Immerse in Nature</h2>
+            <p>Experience the tranquility of the deep forest.</p>
+        </div>
+    </div>
+
+    <!-- Floating Cards Section -->
+    <div class="floating-cards">
+        <div class="floating-card">
+            <h3>Card One</h3>
+            <p>This is a floating card. It has a beautiful shadow effect and appears to be elevated above the content.</p>
+        </div>
+        <div class="floating-card">
+            <h3>Card Two</h3>
+            <p>Another floating card, providing a consistent design and layout with an elegant hovering effect.</p>
+        </div>
+        <div class="floating-card">
+            <h3>Card Three</h3>
+            <p>The third floating card, designed to maintain visual harmony with the rest of the content.</p>
+        </div>
+    </div>
+
+    <!-- Form and Map Section -->
+    <div class="form-map-section">
+        <div class="form-container">
+            <h3>Send Us Your Suggestions</h3>
+            <form>
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea rows="5" placeholder="Your Message" required></textarea>
+                <button type="submit">Send</button>
+            </form>
+        </div>
+        <div class="map-container">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.014332229456!2d144.96315771531596!3d-37.81665997975195!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11fd81%3A0xf577d194e06b47fc!2sFederation%20Square!5e0!3m2!1sen!2sau!4v1594028538333!5m2!1sen!2sau"
+                width="100%" height="400" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between">
+                <div>
+                    <h4 class="text-lg font-semibold mb-2">About Us</h4>
+                    <p class="text-gray-400">We are committed to providing the best experiences through our services.</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-2">Contact</h4>
+                    <p class="text-gray-400">Email: info@example.com</p>
+                    <p class="text-gray-400">Phone: +123 456 7890</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-2">Follow Us</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M22.54 6.42c-.7 3.12-3.09 5.49-6.18 5.85a4.88 4.88 0 01-8.26-4.45 13.84 13.84 0 009.89 5 4.88 4.88 0 01-2.15-4.06 4.87 4.87 0 012.16-4.06 9.74 9.74 0 002.96-.7 4.87 4.87 0 01-2.14 2.7 9.73 9.73 0 002.84-.78 10.28 10.28 0 01-2.41 2.6z"/></svg></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M23.64 11.64c0-6.14-4.95-11.11-11.1-11.11C5.95.53 1 5.5 1 11.64c0 5.03 3.69 9.21 8.51 10.1v-7.14H6.48V11.6h3.03V9.2c0-2.92 1.77-4.5 4.4-4.5 1.27 0 2.37.1 2.69.14v3.12h-1.84c-1.45 0-1.78.7-1.78 1.72v2.24h3.46l-.45 3.41h-3v7.15c4.81-.89 8.5-5.07 8.5-10.1z"/></svg></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12.07 2.23c2.45-.01 4.4 2 4.4 4.46 0 2.45-2 4.43-4.45 4.43s-4.43-1.98-4.43-4.43c-.01-2.46 1.97-4.46 4.43-4.46zm0 7.44a2.99 2.99 0 100-5.97 2.99 2.99 0 100 5.97zM19.8 6.58c.67 0 1.32.27 1.8.74.48.48.75 1.13.75 1.8 0 .67-.27 1.32-.74 1.8-.48.48-1.13.75-1.81.75-.67 0-1.32-.27-1.8-.74-.48-.48-.75-1.13-.75-1.81 0-.67.27-1.32.74-1.8.48-.48 1.13-.74 1.81-.74zm1.43 9.24c0-.75.06-1.5-.06-2.25a4.63 4.63 0 00-.66-1.74c-.47-.82-1.24-1.39-2.12-1.67-.73-.21-1.5-.3-2.25-.3-.75 0-1.5.06-2.25.06-.75 0-1.5-.06-2.25.06-.73.21-1.39.54-2.12 1.03-.6.42-1.1 1-1.5 1.67-.48.73-.76 1.56-.85 2.42-.06.67-.12 1.34-.12 2.01v.9c0 1.19.9 2.15 2.07 2.3 3.08.42 6.18.42 9.24 0 .67-.06 1.29-.3 1.78-.76.48-.48.75-1.13.75-1.8v-.88c-.01-.75-.01-1.5-.01-2.25v-.24c-.01-.72-.01-1.44.01-2.16zM12 14.86c-1.78 0-3.21 1.42-3.21 3.18s1.43 3.18 3.21 3.18 3.21-1.42 3.21-3.18-1.42-3.18-3.21-3.18z"/></svg></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center text-gray-500 mt-4">
+            <p>&copy; 2024 BrandLogo. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const btn = document.querySelector("button.mobile-menu-button");
+        const menu = document.querySelector(".mobile-menu");
+
+        btn.addEventListener("click", () => {
+            menu.classList.toggle("hidden");
+        });
+    </script>
+</body>
+</html>
